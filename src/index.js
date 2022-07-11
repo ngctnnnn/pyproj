@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import inquirer from 'inquirer';
 import figlet from 'figlet';
+import chalkAnimation from 'chalk-animation';
 import { createSpinner } from 'nanospinner';
 import * as fs from 'fs';
 
@@ -9,6 +10,26 @@ let currentDirectory = process.cwd();
 let filePath = '';
 
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
+
+async function welcomeScreen() {
+    const title2 = chalkAnimation.neon(
+`               --------------------------------------
+               |               PYPROJ               |
+               --------------------------------------
+        `
+    );
+    // ----------------------------------
+
+// `
+    await sleep();
+    title2.stop();
+    console.log(
+`             A compact CLI to initialize (python) project
+`);
+    await sleep();
+    // console.log(title2);
+    
+}
 
 async function getFileType() {
     const answers = await inquirer.prompt({
@@ -37,7 +58,7 @@ async function getPathToWrite() {
         filePath = currentDirectory + '/' + answers.pathToWrite;
     }
 }
-
+await welcomeScreen();
 await getFileType();
 await getPathToWrite();
 
