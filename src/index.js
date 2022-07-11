@@ -1,8 +1,5 @@
 #!/usr/bin/env node
-import chalk from 'chalk';
 import inquirer from 'inquirer';
-import gradient from 'gradient-string';
-import chalkAnimation from 'chalk-animation';
 import figlet from 'figlet';
 import { createSpinner } from 'nanospinner';
 import * as fs from 'fs';
@@ -65,14 +62,21 @@ class console:
         print(x, y, z)
 `
 
-if ((fileType == 'py') || (fileType == 'python')) {
-    fs.writeFile(filePath, init_code, function(err) {
-        if (err) {
-            return console.log(err);
-        }
-        console.log('File created!');
-    })
-} else {
-    throw new Error('File type not supported (yet)');
+async function writeCode()  {
+    if ((fileType == 'py') || (fileType == 'python')) {
+        fs.writeFile(filePath, init_code, function(err) {
+            if (err) {
+                return console.log(err);
+            }
+            console.log('File created!');
+        })
+    } else {
+        throw new Error('File type not supported (yet)');
+    }
 }
-// console.log(`File type: ${fileType}`);
+
+const spinner = createSpinner('Initializing...').start();
+
+setTimeout(() => {
+    spinner.success()
+}, await writeCode())
