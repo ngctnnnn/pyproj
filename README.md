@@ -7,7 +7,7 @@
 ### Installation 
 
 ```bash
-npm i -g pyproj@1.0.1
+npm i -g pyproj@latest
 ```
 
 ### Usage 
